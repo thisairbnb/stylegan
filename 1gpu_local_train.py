@@ -39,7 +39,7 @@ if 1:
     #desc += '-8gpu'; submit_config.num_gpus = 8; sched.minibatch_base = 32; sched.minibatch_dict = {4: 512, 8: 256, 16: 128, 32: 64, 64: 32}
 
     # Default options.
-    desc += '-local';  dataset = EasyDict(tfrecord_dir='source-tfrecords');    train.mirror_augment = False
+    desc += '-local';  dataset = EasyDict(tfrecord_dir='../source-tfrecords');    train.mirror_augment = False
     desc += '-1gpu'; submit_config.num_gpus = 1; sched.minibatch_base = 4; sched.minibatch_dict = {4: 128, 8: 128, 16: 128, 32: 64, 64: 32, 128: 16, 256: 8, 512: 4}
     train.total_kimg = 25000
     sched.lod_initial_resolution = 8
