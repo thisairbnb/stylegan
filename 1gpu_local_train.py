@@ -39,14 +39,14 @@ if 1:
     #desc += '-8gpu'; submit_config.num_gpus = 8; sched.minibatch_base = 32; sched.minibatch_dict = {4: 512, 8: 256, 16: 128, 32: 64, 64: 32}
 
     # Default options.
+    desc += '-local';  dataset = EasyDict(tfrecord_dir='source-tfrecords');    train.mirror_augment = False
+    desc += '-1gpu'; submit_config.num_gpus = 1; sched.minibatch_base = 4; sched.minibatch_dict = {4: 128, 8: 128, 16: 128, 32: 64, 64: 32, 128: 16, 256: 8, 512: 4}
     train.total_kimg = 25000
     sched.lod_initial_resolution = 8
     sched.G_lrate_dict = {128: 0.0015, 256: 0.002, 512: 0.003, 1024: 0.003}
     sched.D_lrate_dict = EasyDict(sched.G_lrate_dict)
 
 def main():
-    desc += '-local';  dataset = EasyDict(tfrecord_dir='source-tfrecords');    train.mirror_augment = False
-    desc += '-1gpu'; submit_config.num_gpus = 1; sched.minibatch_base = 4; sched.minibatch_dict = {4: 128, 8: 128, 16: 128, 32: 64, 64: 32, 128: 16, 256: 8, 512: 4}
     kwargs = EasyDict(train)
     kwargs.update(G_args=G, D_args=D, G_opt_args=G_opt, D_opt_args=D_opt, G_loss_args=G_loss, D_loss_args=D_loss)
     kwargs.update(dataset_args=dataset, sched_args=sched, grid_args=grid, metric_arg_list=metrics, tf_config=tf_config)
